@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style type="text/css">
+		canvas{
+			border: 1px solid red;
+		}
+	</style>
+	<body>
+		<canvas id="" width="300" height="300"></canvas>
+	</body>
+</html>
+<script type="text/javascript">
+	const PI=Math.PI;
+	let ctx=document.querySelector('canvas').getContext('2d');
+//	ctx.beginPath();
+
+//	ctx.arc(150,150,100,0,2*PI,false);	
+//	
+//	ctx.moveTo(220,170);
+//	ctx.arc(150,170,70,0,PI,false);
+//	ctx.moveTo(130,110);
+//	ctx.arc(110,110,20,0,2*PI,false);
+//	ctx.moveTo(210,110)
+//	ctx.arc(190,110,20,0,2*PI,false);
+//	ctx.stroke();
+	
+//	poly(5)
+//	function poly(num){
+//		let ang=360/num/180*Math.PI;
+//		let r=100;
+//		ctx.beginPath();
+//		ctx.moveTo(150+100,150);
+//		for(let i=1;i<num;i++){
+//			ctx.lineTo(150+r*Math.cos(ang*i),150+r*Math.sin(ang*i));
+//		}
+//		ctx.closePath();
+//		ctx.fill();
+//	}
+//	let t=setInterval(fn,60);
+	let n=1;
+	let t;
+	fn();
+	function fn(){
+		n++;
+		if(n==80){
+//			clearInterval(t);
+			cancelAnimationFrame(t);
+		}else{
+			t=requestAnimationFrame(fn);
+		}
+		ctx.clearRect(0,0,300,300);
+		let end=n*(2*PI/100);
+		ctx.lineWidth=20; 
+		ctx.font='bold 30px sans-serif';
+		ctx.fillText(`${n}%`,150,150);
+		ctx.textAlign='center';
+		ctx.lineCap='round';
+		ctx.beginPath();
+		ctx.arc(150,150,100,-0.5*PI,end-0.5*PI,false);
+		ctx.stroke();
+	}
+	
+</script>

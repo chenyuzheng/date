@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<audio src="" controls="controls" autoplay="autoplay"></audio>
+		<!--<audio controls="controls" autoplay="autoplay">
+			<source src="" type=""></source>
+		</audio>-->
+		<button>播放</button>
+	</body>
+</html>
+<script type="text/javascript">
+	let Audio=document.querySelector('audio');
+	let but=document.querySelector('button');
+	but.onclick=function(){
+		if(Audio.paused){
+			Audio.play();
+		}else{
+			Audio.pause();
+		}
+	}
+	Audio.ontimeupdate=function(){
+		Audio.currentTime    /*当前播放时间*/
+		Audio.duration    /*总时长*/
+	}
+</script>

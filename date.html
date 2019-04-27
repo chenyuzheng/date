@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+</html>
+<script type="text/javascript">
+	fn();
+	setInterval(fn,1000);
+	function fn(){
+		let now=new Date();
+		let tomorrow=new Date('2017/8/26 09:00:00');
+		let cha=Math.floor((tomorrow.getTime()-now.getTime())/1000);
+		let day=Math.floor(cha/(24*60*60));
+		console.log(day);
+		cha=cha%(24*60*60);
+		let hour=Math.floor(cha/(60*60));
+		cha=cha%(60*60);
+		let minute=Math.floor(cha/60);
+		let second=cha%60;	
+		document.body.innerText=`${day}天${hour}时${minute}分${second}秒`;
+	}
+	
+</script>

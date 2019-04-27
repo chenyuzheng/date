@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+</html>
+<script type="text/javascript">
+	array(0.1);	
+   function array(num){
+   		let next=new Date();
+		next.setTime(next.getTime()+num*60*1000);
+		let t=setInterval(fn,1);
+		
+		function fn(){
+			let now=new Date();
+			let cha=Math.floor(next.getTime()-now.getTime());
+			let minute=Math.floor(cha/(60*1000));
+			cha=cha%(60*1000);
+			let second=Math.floor(cha/1000);
+			let simi=cha%1000;
+			document.body.innerText=`${minute}分${second}秒${simi}毫秒`;
+			if(cha==0){
+				clearInterval(t);
+			}
+		}
+   }
+	
+	
+</script>

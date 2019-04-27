@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style type="text/css">
+		canvas{
+			border: 1px solid red;
+		}
+	</style>
+	<body>
+		<canvas id="" width="900" height="900"></canvas>
+	</body>
+</html>
+<script type="text/javascript">
+	let canvas=document.querySelector('canvas');
+	let ctx=canvas.getContext('2d');
+	
+	//在任意位置画任意多边形
+	canvas.onmousedown=function(e){
+		let ox=e.offsetX,oy=e.offsetY;
+		canvas.onmousemove=function(e){
+			let cx=e.offsetX,cy=e.offsetY;
+			let r=Math.sqrt(Math.pow(cx-ox,2)+Math.pow(cy-oy,2));
+			poly(ox,oy,6,r);
+		}
+		canvas.onmouseup=function(){
+			canvas.onmousemove=null;
+			canvas.onmouseup=null;
+		}
+	}
+
+	//任意线
+	canvas.onmousedown=function(e){
+		let ox=e.offsetX,oy=e.offsetY;
+		ctx.beginPath();
+		ctx.moveTo(ox,oy);
+		canvas.onmousemove=function(e){
+			let cx=e.offsetX,cy=e.offsetY;
+			ctx.lineTo(cx,cy);
+			ctx.stroke();
+		}
+		canvas.onmouseup=function(){
+			canvas.onmousemove=null;
+			canvas.onmouseup=null;
+		}
+	}
+    
+    //一条直线
+//	canvas.onmousedown=function(e){
+//		let ox=e.offsetX,oy=e.offsetY;
+//		
+//		canvas.onmousemove=function(e){
+//			let cx=e.offsetX,cy=e.offsetY;
+//			ctx.clearRect(0,0,canvas.width,canvas.height);
+//			ctx.beginPath();
+//			ctx.moveTo(ox,oy);
+//			ctx.lineTo(cx,cy);
+//			ctx.stroke();
+//		}
+//		canvas.onmouseup=function(){
+//			canvas.onmousemove=null;
+//			canvas.onmouseup=null;
+//		}
+//	}
+	
+	//一条虚线
+//	let arr;
+//	canvas.onmousedown=function(e){
+//		let ox=e.offsetX,oy=e.offsetY;
+//		
+//		canvas.onmousemove=function(e){
+//			let cx=e.offsetX,cy=e.offsetY;
+//			ctx.clearRect(0,0,canvas.width,canvas.height);
+//			ctx.putImageData(arr,0,0);
+//			ctx.beginPath();
+//			ctx.moveTo(ox,oy);
+//			ctx.setLineDash([10,10]);
+//			ctx.lineTo(cx,cy);
+//			ctx.stroke();
+//		}
+//		canvas.onmouseup=function(){
+//			arr=ctx.getImageData(0,0,canvas.width,canvas.height);
+//			canvas.onmousemove=null;
+//			canvas.onmouseup=null;
+//		}
+//	}
+	
+	
+	let arr=[];
+	let img;
+	canvas.onmousedown=function(e){
+		let ox=e.offsetX,oy=e.offsetY;
+		
+		canvas.onmousemove=function(e){
+			let cx=e.offsetX,cy=e.offsetY;
+			ctx.clearRect(0,0,canvas.width,canvas.height);
+			if(arr.length>0){
+				ctx.putImageData(arr[arr.length-1],0,0);
+			}
+			ctx.beginPath();
+			ctx.moveTo(ox,oy);
+			ctx.setLineDash([10,10]);
+			ctx.lineTo(cx,cy);
+			ctx.stroke();
+		}
+		canvas.onmouseup=function(){
+			arr.push(ctx.getImageData(0,0,canvas.width,canvas.height));
+			canvas.onmousemove=null;
+			canvas.onmouseup=null;
+		}
+	}
+	document.onkeydown=function(e){
+			if(e.ctrlKey && e.keyCode==90){
+				img=arr.pop();			
+				ctx.putImageData(img,0,0);
+			}
+	}
+
+	
+//	ctx.lineCap='round';
+//	ctx.beginPath();
+//	ctx.lineWidth=20;
+//	ctx.lineJoin='miter';
+//	ctx.miterLimit=25;
+//	ctx.moveTo(100,100);
+//	ctx.lineTo(300,100);
+//	ctx.stroke();
+
+	
+//	let img=new Image();
+//	img.src='img/牛仔苹果1.jpg';
+//	console.log(img);
+//	img.onload=function(){
+//		ctx.drawImage(img,50,50);
+//	}
+	
+	
+	
+	function poly(x,y,num,r){
+		let ang=360/num/180*Math.PI;
+		ctx.clearRect(0,0,canvas.width,canvas.height);
+		ctx.beginPath();
+		ctx.moveTo(x+r,y);
+		for(let i=1;i<num;i++){
+			ctx.lineTo(x+r*Math.cos(ang*i),y+r*Math.sin(ang*i));
+		}
+		ctx.closePath();
+		ctx.fill();
+	}
+</script>
